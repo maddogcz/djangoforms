@@ -1,0 +1,15 @@
+{
+    "name": "@maddogcz/djangoforms",
+    "version": "0.0.1",
+    "description": "A set of Vue 3 SFC with Quasar v2 for work with django forms",
+    "license": "MIT",
+    "repository": "maddog/djangoforms",
+    "main": "index.js",
+    "keywords": [
+        "vue",
+        "vue3",
+        "django",
+        "python",
+        "forms"
+    ]
+}
