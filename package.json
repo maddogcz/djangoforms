@@ -3,7 +3,7 @@
     "version": "0.0.3",
     "description": "A set of Vue 3 SFC with Quasar v2 for work with django forms",
     "license": "MIT",
-    "repository": "maddog/djangoforms",
+    "repository": "maddogcz/djangoforms",
     "main": "index.js",
     "keywords": [
         "vue",
