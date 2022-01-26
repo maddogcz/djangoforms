@@ -6,6 +6,9 @@
             <input type="hidden" :name="prefixName('MIN_NUM_FORMS')" :value="min">
             <input type="hidden" :name="prefixName('MAX_NUM_FORMS')" :value="max">
         </div>
+        <slot name="forms" :formCfg="formCfg" :updateModelValue="valueUpdate">
+            
+        </slot>
         <div :key="formKey(d, i)" v-for="(d, i) in data">
             <slot
                 name="form" :index="i" :formCfg="formCfg(i)" :data="data[i]"
