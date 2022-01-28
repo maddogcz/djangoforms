@@ -6,10 +6,9 @@
 
 <script>
     import {form as frm} from "./composables/forms";
-    import {toRefs} from "vue";
+    import {toRefs, watch} from "vue";
+    import {QInput, QFile, QCheckbox, QSelect} from "quasar";
 
-    // The comment below is actually important !!! DO NOT DELETE !!!
-    // ["q-input", "q-file", "q-checkbox", "q-select"]
 
     const inputProps = ["filled", "outlined", "standout", "borderless", "rounded", "square", "dense"];
     const props = {
@@ -20,6 +19,7 @@
         cfgExtend: {
             type: Function,
         },
+        errors: Object,
     }
 
     for(const ip of inputProps){
@@ -31,6 +31,7 @@
 
     export default {
         props,
+        components: {QInput, QFile, QCheckbox, QSelect},
         setup(props){
 
             const ips = [];
@@ -40,15 +41,20 @@
                 }
             }
 
-            const {form} = toRefs(props);
-            const {data, errors, fieldType, fieldCfg} = frm(
+            const {form, errors} = toRefs(props);
+            const {errors: errs, fieldType, fieldCfg, getErrors} = frm(
                 form,
                 props.cfgExtend,
                 ips,
             );
+
+            watch(errors, ()=>{
+                errs.value = getErrors(errors.value);
+            });
+
             return {
-                data,
-                errors,
+                // data,
+                // errors,
                 fieldType,
                 fieldCfg,
             }
