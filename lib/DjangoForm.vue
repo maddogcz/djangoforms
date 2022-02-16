@@ -42,7 +42,7 @@
             }
 
             const {form, errors} = toRefs(props);
-            const {errors: errs, fieldType, fieldCfg, getErrors} = frm(
+            const {errors: errs, fieldType, fieldCfg, getErrors, data} = frm(
                 form,
                 props.cfgExtend,
                 ips,
@@ -53,7 +53,7 @@
             });
 
             return {
-                // data,
+                data,
                 // errors,
                 fieldType,
                 fieldCfg,
