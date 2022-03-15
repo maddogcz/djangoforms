@@ -73,7 +73,7 @@ cfgExtend(fieldName, fieldObject, fieldCfg){
     <form>
         <!-- Using a loop -->
         <component
-            v-for="field in frm.field_list" :key="field"
+            v-for="field in personForm.field_list" :key="field"
             :is="filedType(filed)"
             v-bind="fieldCfg(field)"
 
@@ -89,15 +89,15 @@ cfgExtend(fieldName, fieldObject, fieldCfg){
     import {form} from "@maddogcz/djangoforms/lib/composables/forms";
 
     export default {
-        props: ["form"],
+        props: ["personForm"],
         setup(props){
-            const {form: frm} = toRefs(props);
-            const {fieldType, fieldCfg, data} = form(frm);
+            const {personForm} = toRefs(props);
+            const {fieldType, fieldCfg, data} = form(personForm);
 
             data.value.name = "Freddy"; // Manually set field value;
 
             return{
-                frm, fieldType, fieldCfg
+                personForm, fieldType, fieldCfg
             }
         }
     }

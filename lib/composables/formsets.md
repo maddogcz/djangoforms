@@ -1,6 +1,6 @@
 # FormSet composition functions
 
-This set of tools facilitates creating HTML forms based on serilized formsets from Django
+This set of tools facilitates creating HTML forms based on serialized formsets from Django
 
 ```js
 const {
@@ -10,9 +10,9 @@ const {
 
 ## Arguments
 
-Formset argument has the same structure as for `form` except:
+Formset arguments have the same structure as for `form` except:
 - `data` and `errors` are arrays of objects
-- `type: "FormSet",`
+- `type: "FormSet"`
 - `prefix` is usually not `null`
 - `cfgExtend` argument is moved to `fieldCfgExtend` property of `DjangoFormSet` component
 
@@ -20,7 +20,7 @@ Formset argument has the same structure as for `form` except:
 
 Again very similar to `form` except:
 - `data` and `error` are list of objects
-- although `data` and `errors` are arrays, `getData` and `getErrors` still return and object (e.g. you can push it to create new form in the formset `data.value.push(getData())`)
+- although `data` and `errors` are arrays, `getData` and `getErrors` still return object (e.g. you can push it to create new form in the formset: `data.value.push(getData())`)
 - you won't get `fieldCfg` here, you'll get it in form(s) slot scope
 
 ## Slot scopes
@@ -30,17 +30,17 @@ Again very similar to `form` except:
 - formCfg: current form config
 ```js
 {
-    fieldCfg, // field confg fucntion
-    prefix, // current form prefix
-    fieldList, // list of fields in order
-    fields, // form fields mapping
+    fieldCfg: Function, // field config function
+    prefix: String, // current form prefix
+    fieldList: Array, // list of fields in order
+    fields: Object, // form fields mapping
 }
 ```
 - data: current form data
 - errors: current form errors
 
 ### forms
-- formCfg: form config generator, call `formCfg(idx)` to get form config
+- formCfg: form config generator, call `formCfg(index)` to get form config
 
 ## Example usage
 
@@ -56,7 +56,7 @@ Again very similar to `form` except:
                 </div>
             </template>
 
-            <!-- All forms at once (iterating is up tp you) -->
+            <!-- OR All forms at once (iterating is up to you) -->
             <template v-slot:forms="formCfg">
                 <div v-for="(d, idx) in data" :key="idx">
                     <my-form :fieldCfg="formCfg(idx).fieldCfg"></my-form>
