@@ -9,12 +9,12 @@
         <slot name="forms" :formCfg="formCfg">
             
         </slot>
-        <div :key="formKey(d, i)" v-for="(d, i) in data">
+        <component :is="tag" :key="formKey(d, i)" v-for="(d, i) in data" :class="wrapperClass">
             <slot
                 name="form" :index="i" :formCfg="formCfg(i)" :data="data[i]"
                 :errors="errors[i]"
             ></slot>
-        </div>
+        </component>
     </div>
 </template>
 
@@ -43,9 +43,14 @@
             formKey: {
                 type: Function,
                 default: (d, i)=>{
-                    return i;
+                    return d._djangoformid || i;
                 }
-            }
+            },
+            tag: {
+                type: String,
+                default: "div",
+            },
+            wrapperClass: String,
         },
         emits: ["update:modelValue"],
         setup(props, {emit}){
