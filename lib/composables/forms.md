@@ -86,7 +86,7 @@ cfgExtend(fieldName, fieldObject, fieldCfg){
 
 <script>
     import {toRefs} from "vue";
-    import {form} from "@maddogcz/djangoforms/lib/composables/forms";
+    import {form} from "@maddogcz/djangoforms";
 
     export default {
         props: ["personForm"],

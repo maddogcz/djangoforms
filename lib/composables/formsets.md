@@ -68,8 +68,7 @@ Again very similar to `form` except:
 
 <script>
     import {toRefs} from "vue";
-    import {form} from "@maddogcz/djangoforms/lib/composables/formsetValues";
-    import FormSet from "@maddogcz/djangoforms/lib/DjangoFormSet";
+    import {form, DjangoFormSet as FormSet} from "@maddogcz/djangoforms";
 
     export default {
         props: ["formset"],

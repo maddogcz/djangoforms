@@ -57,17 +57,17 @@
             const {form, data, errors, fieldCfgExtend} = toRefs(props);
             const {formCfg, prefixName} = formset(form, data, errors, emit, fieldCfgExtend ? fieldCfgExtend.value : null);
 
-            function valueUpdate(idx){
-                const ret = (field, value)=>{
-                    emit('update:modelValue', field, idx, value);
-                };
-                return ret;
-            }
+            // function valueUpdate(idx){
+            //     const ret = (field, value)=>{
+            //         emit('update:modelValue', field, idx, value);
+            //     };
+            //     return ret;
+            // }
 
             return {
                 formCfg,
                 prefixName,
-                valueUpdate,
+                // valueUpdate,
             }
         },
     };

@@ -9,5 +9,10 @@
   ],
   "parserOptions": {
     "parser": "babel-eslint"
+  },
+  "rules": {
+    "no-unused-vars": 1,
+    "no-unreachable": 1,
+    "vue/no-unused-components": 1
   }
 }
