@@ -4,7 +4,7 @@ This function facilitates creating HTML forms based on serilized forms from Djan
 
 ```js
 const {
-    data, errors, fieldType, getData, getErrors, fieldCfg
+    data, errors, fieldType, getData, getErrors, fieldsCfg
 } = form(serializedForm, cfgExtend)
  ```
 ## Arguments
@@ -65,6 +65,7 @@ cfgExtend(fieldName, fieldObject, fieldCfg){
 - **getErrors**: same for errors
 - **fieldType**: Function that maps field name to its corresponding component according to `field.widget` property. If the mapping fails, the widget value is unchaged assuming a corresponding component will be used. Type mapping includes: TextInput, EmailInput, NumberInput, HiddenInput, PasswordInput, Textarea, Select, CheckboxInput, HiddenInput, FileInput and ClearableFileInput.
 - **fieldCfg**: Function that receive filed name (`String`) and return object containing filed configuration meant to be used with `v-bind="fieldCfg('fieldName')"`. Configuration also includes value handling using `modelValue` prop and `onUpdate:modelValue` listener.
+- **fieldsCfg**: Function that create object of all fields CFGs in more effective manner the oneby one calling `fieldCfg` in template. Used for configuring form fields like: in `setup()` call and return `const fileds = fieldsCfg();` and then `v-bind="fields.fieldName"`;
 
 ## Usage example
 
@@ -74,13 +75,13 @@ cfgExtend(fieldName, fieldObject, fieldCfg){
         <!-- Using a loop -->
         <component
             v-for="field in personForm.field_list" :key="field"
-            :is="filedType(filed)"
-            v-bind="fieldCfg(field)"
+            :is="fieldType(field)"
+            v-bind="fields[field]"
 
         ></component>
 
         <!-- Or explicitly -->
-        <q-input v-bind="fieldCfg('name')"></q-input>
+        <q-input v-bind="fields.name"></q-input>
     </form>
 </template>
 
@@ -92,12 +93,12 @@ cfgExtend(fieldName, fieldObject, fieldCfg){
         props: ["personForm"],
         setup(props){
             const {personForm} = toRefs(props);
-            const {fieldType, fieldCfg, data} = form(personForm);
+            const {fieldType, fieldsCfg, data} = form(personForm);
 
             data.value.name = "Freddy"; // Manually set field value;
 
             return{
-                personForm, fieldType, fieldCfg
+                personForm, fieldType, fields: fieldsCfg()
             }
         }
     }

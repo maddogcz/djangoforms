@@ -19,9 +19,9 @@ Formset arguments have the same structure as for `form` except:
 ## Returns
 
 Again very similar to `form` except:
-- `data` and `error` are list of objects
+- `data` and `error` are arrays of objects
 - although `data` and `errors` are arrays, `getData` and `getErrors` still return object (e.g. you can push it to create new form in the formset: `data.value.push(getData())`)
-- you won't get `fieldCfg` here, you'll get it in form(s) slot scope
+- you won't get `fieldCfg` nor `fieldsCfg` here, you'll get it in form(s) slot scope
 
 ## Slot scopes
 
@@ -31,6 +31,7 @@ Again very similar to `form` except:
 ```js
 {
     fieldCfg: Function, // field config function
+    fieldsCfg: Object, // fields config mapping objects (preferred to fieldCfg)
     prefix: String, // current form prefix
     fieldList: Array, // list of fields in order
     fields: Object, // form fields mapping
@@ -50,16 +51,16 @@ Again very similar to `form` except:
         <form-set :form="formset" :data="data" :errors="errors">
 
             <!-- Single form mode -->
-            <template v-slot:form="{{fieldCfg}: formCfg}">
+            <template v-slot:form="{formCfg}">
                 <div>
-                    <q-input v-bind="fieldCfg('name')"></q-input>
+                    <q-input v-bind="formCfg.fieldsCfg.name"></q-input>
                 </div>
             </template>
 
             <!-- OR All forms at once (iterating is up to you) -->
             <template v-slot:forms="formCfg">
                 <div v-for="(d, idx) in data" :key="idx">
-                    <my-form :fieldCfg="formCfg(idx).fieldCfg"></my-form>
+                    <my-form :cfg="formCfg" :idx="idx"></my-form>
                 </div>
             </template>
         </form-set>
@@ -67,7 +68,7 @@ Again very similar to `form` except:
 </template>
 
 <script>
-    import {toRefs} from "vue";
+    import {toRefs, computed} from "vue";
     import {form, DjangoFormSet as FormSet} from "@maddogcz/djangoforms";
 
     export default {
