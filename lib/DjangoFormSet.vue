@@ -7,7 +7,7 @@
             <input type="hidden" :name="prefixName('MAX_NUM_FORMS')" :value="max">
         </div>
         <slot name="forms" :formCfg="formCfg">
-            
+
         </slot>
         <component :is="tag" :key="formKey(d, i)" v-for="(d, i) in data" :class="wrapperClass">
             <slot
@@ -20,7 +20,7 @@
 
 <script>
 
-    import {formset} from "./composables/forms";
+    import {formset} from "./composables/forms.js";
     import {toRefs, computed} from "vue";
 
     export default {
@@ -51,11 +51,12 @@
                 default: "div",
             },
             wrapperClass: String,
+            cfg: Object,
         },
         emits: ["update:modelValue"],
         setup(props, {emit}){
-            const {form, data, errors, fieldCfgExtend} = toRefs(props);
-            const {formCfg, prefixName} = formset(form, data, errors, emit, fieldCfgExtend ? fieldCfgExtend.value : null);
+            const {form, data, errors, fieldCfgExtend, cfg} = toRefs(props);
+            const {formCfg, prefixName} = formset(form, data, errors, emit, fieldCfgExtend ? fieldCfgExtend.value : null, cfg.value || null);
             const formCfgs = computed(function(){
                 const res = [];
                 for(let i=0; i<data.value.length; i++){

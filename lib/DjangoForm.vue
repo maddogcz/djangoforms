@@ -5,9 +5,9 @@
 </template>
 
 <script>
-    import {form as frm} from "./composables/forms";
+    import {form as frm} from "./composables/forms.js";
     import {toRefs, watch} from "vue";
-    import {QInput, QFile, QCheckbox, QSelect} from "quasar";
+    // import {QInput, QFile, QCheckbox, QSelect} from "quasar";
 
 
     const inputProps = ["filled", "outlined", "standout", "borderless", "rounded", "square", "dense"];
@@ -31,7 +31,7 @@
 
     export default {
         props,
-        components: {QInput, QFile, QCheckbox, QSelect},
+        // components: {QInput, QFile, QCheckbox, QSelect},
         setup(props){
 
             const ips = [];
@@ -60,5 +60,5 @@
             }
         },
     }
-    
+
 </script>
