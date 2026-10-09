@@ -7,7 +7,7 @@
 <script>
     import {form as frm} from "./composables/forms.js";
     import {toRefs, watch} from "vue";
-    // import {QInput, QFile, QCheckbox, QSelect} from "quasar";
+    import {QInput, QFile, QCheckbox, QSelect} from "quasar";
 
 
     const inputProps = ["filled", "outlined", "standout", "borderless", "rounded", "square", "dense"];
@@ -28,11 +28,11 @@
             default: false,
         }
     }
-
     export default {
         props,
-        // components: {QInput, QFile, QCheckbox, QSelect},
+        components: {QInput, QFile, QCheckbox, QSelect},
         setup(props){
+            const {form, errors, cfgExtend: _cfgExtend} = toRefs(props);
 
             const ips = [];
             for(const ip of inputProps){
@@ -41,11 +41,16 @@
                 }
             }
 
-            const {form, errors} = toRefs(props);
+            function cfgExtend(name, fields, res){
+                _cfgExtend.value(name, fields, res);
+                for(const ip of ips){
+                    res[ip] = true;
+                }
+            }
+
             const {errors: errs, fieldType, fieldCfg, getErrors, data} = frm(
                 form,
-                props.cfgExtend,
-                ips,
+                cfgExtend,
             );
 
             watch(errors, ()=>{
